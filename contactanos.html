@@ -7,19 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <style>
         :root {
-            --color-primary: #0084f7; --color-secondary: #007bff; --color-dark-bg: #0f0f10; --color-light-bg: #1a1a1e;
+            --color-primary: #0b7fcc; --color-secondary: #32e4e4; --color-dark-bg: #195ae6; --color-light-bg: #1a1a1e;
             --color-text-light: #f4f4f4; --color-text-dark: #000; --color-gray-text: #ccc; --color-border: #333;
-            --color-button-hover: #fff; --color-icon-hover: #0f0f10; --color-shadow-primary: rgba(0, 132, 247, 0.4);
+            --color-button-hover: #fff; --color-icon-hover: #ffffff; --color-shadow-primary: rgba(59, 151, 238, 0.4);
             --color-shadow-dark: rgba(0,0,0,0.7);
         }
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--color-dark-bg); color: var(--color-text-light); line-height: 1.6; overflow-x: hidden; }
-        .top-bar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background: #000000cc; backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border); }
+        .top-bar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background: #195ae6; backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border); }
         .logo { font-size: 1.5em; font-weight: bold; background-image: linear-gradient(120deg, #fff 10%, var(--color-primary) 40%, #fff 70%); background-size: 200% auto; animation: shimmer 4s linear infinite; color: transparent; background-clip: text; -webkit-background-clip: text; white-space: nowrap; cursor: pointer; }
         @keyframes shimmer { 0% { background-position: -100% center; } 100% { background-position: 100% center; } }
         .logo.clicked { animation: shimmer 4s linear infinite, logoPop 0.3s ease-out; }
         @keyframes logoPop { 0%,100% { transform: scale(1); } 50% { transform: scale(1.02); } }
         .nav-inline { display: flex; gap: 12px; }
-        .btn-nav { position: relative; padding: 10px 20px; background: #27272a; border: 1px solid var(--color-primary); color: var(--color-primary); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-size: 0.95em; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; overflow: hidden; }
+        .btn-nav { position: relative; padding: 10px 20px; background: #2a2729; border: 1px solid var(--color-primary); color: var(--color-primary); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-size: 0.95em; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; overflow: hidden; }
         .btn-nav::before { content: ''; position: absolute; top: var(--y); left: var(--x); transform: translate(-50%, -50%); width: 0; height: 0; background: radial-gradient(circle, rgba(0,132,247,0.8) 0%, rgba(0,132,247,0) 70%); transition: width 0.5s, height 0.5s; border-radius: 50%; }
         .btn-nav:hover::before { width: 300px; height: 300px; }
         .btn-nav:hover { color: var(--color-button-hover); background: var(--color-primary); }
@@ -84,7 +84,7 @@
         .section-dark { background: var(--color-dark-bg); }
         .section-light { background: var(--color-light-bg); }
         .separator-section { padding: 60px 20px; text-align: center; background: linear-gradient(to bottom, var(--color-dark-bg), var(--color-light-bg)); position: relative; z-index: 5; }
-        .section-parallax { background-image: url('img/bg_contactanos.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 400px; }
+        .section-parallax { background-image: url('img/bg_contactanos.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 600px; }
         
         .about-us-section-page, .contact-section-page { text-align: center; padding: 80px 20px; }
         .about-us-section-page { background-color: var(--color-light-bg); }
