@@ -14,7 +14,7 @@
         }
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--color-dark-bg); color: var(--color-text-light); line-height: 1.6; overflow-x: hidden; }
         .top-bar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background: #000000; backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border); }
-        .logo { font-size: 1.5em; font-weight: bold; background-image: linear-gradient(120deg, #fff 10%, var(--color-primary) 40%, #fff 70%); background-size: 200% auto; animation: shimmer 4s linear infinite; color: transparent; background-clip: text; -webkit-background-clip: text; white-space: nowrap; cursor: pointer; }
+        .logo { font-size: 2.0em; font-weight: bold; background-image: linear-gradient(120deg, #fff 10%, var(--color-primary) 40%, #fff 70%); background-size: 200% auto; animation: shimmer 4s linear infinite; color: transparent; background-clip: text; -webkit-background-clip: text; white-space: nowrap; cursor: pointer; }
         @keyframes shimmer { 0% { background-position: -100% center; } 100% { background-position: 100% center; } }
         .logo.clicked { animation: shimmer 4s linear infinite, logoPop 0.3s ease-out; }
         @keyframes logoPop { 0%,100% { transform: scale(1); } 50% { transform: scale(1.02); } }
@@ -168,7 +168,7 @@
                 justify-content: space-between;
                 background: #000000;
             }
-            .logo { font-size: 1.3em; }
+            .logo { font-size: 1.5em; }
             .nav-inline {
                 position: fixed;
                 top: 60px;
@@ -183,6 +183,7 @@
                 box-sizing: border-box;
                 flex-direction: column;
                 display: none;
+                z-index: 1000;
             }
             .nav-inline.show { display: flex; }
 
