@@ -122,22 +122,22 @@
             box-sizing: border-box;
             color: white;
             z-index: 3;
-            max-width: 800px;
-            margin-bottom: 120px;
+            max-width: 1000px;
+            margin-bottom: 80px;
             transform: translateZ(30px);
         }
         
         .hero-option h2 {
             font-size: 2.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            text-shadow: 8px 8px 11px rgba(0, 0, 0, 0.8);
             transition: all 0.5s ease;
         }
         
         .hero-option p {
             font-size: 1.2em;
             margin-bottom: 40px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            text-shadow: 8px 8px 11px rgba(0, 0, 0, 0.8);
             opacity: 0.9;
             transition: all 0.5s ease;
         }
@@ -253,7 +253,11 @@
             html { font-size: 13px; overflow-x: hidden; }
             body { overflow-x: hidden; position: relative; }
 
-            .top-bar { padding: 10px 20px; }
+            .top-bar {
+                padding: 10px 20px;
+                justify-content: space-between;
+                background: #000000;
+            }
             .logo { font-size: 1.3em; }
             .nav-inline {
                 position: fixed;
@@ -265,16 +269,19 @@
                 padding: 15px;
                 border-radius: 0;
                 width: 100%;
+                max-width: none;
+                box-sizing: border-box;
                 flex-direction: column;
                 display: none;
             }
             .nav-inline.show { display: flex; }
+
             .hamburger { display: flex; width: 36px; height: 30px; }
             
             .hero-options-section { min-height: auto; height: auto; }
             .hero-options-container { flex-direction: column; height: auto; }
             .hero-option { height: 100vh; min-height: 500px; margin: 0; }
-            .hero-option-content { padding: 30px 20px; margin-bottom: 40px; }
+            .hero-option-content { padding: 30px 20px; margin-bottom: 20px; }
             .hero-option h2 { font-size: 2em; }
             .hero-option p { font-size: 1.1em; }
             .hero-option-btn { padding: 12px 30px; font-size: 1em; }
@@ -345,13 +352,13 @@
             </div>
             
             <div class="hero-option" 
-                 data-title="Integramos Google Ads."
+                 data-title="Remodelación de Marca."
                  data-subtitle="Posicionate y te conseguirán con un click.">
-                <div class="hero-option-bg" style="background-image: url('img/h3.png');"></div>
+                <div class="hero-option-bg" style="background-image: url('img/h3.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h3-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Integramos Google Ads.</h2>
-                    <p>Posicionate y te conseguirán con un click.</p>
+                    <h2>Remodelación de Marca.</h2>
+                    <p>Logo, imagen corporativa, pulimos lo que necesites.</p>
                     <a href="#" class="hero-option-btn">Ver Más</a>
                 </div>
             </div>
