@@ -207,7 +207,7 @@
         .social-icons { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
         .social-icons a { width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--color-text-dark); color: var(--color-primary); font-size: 1.5em; transition: all 0.3s ease; }
         .social-icons a:hover { background: var(--color-primary); color: var(--color-icon-hover); transform: translateY(-5px); }
-        .section-parallax { background-image: url('img/bg_index.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 600px; }
+        .section-parallax { background-image: url('img/bg_index.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 480px; }
         footer { text-align: center; }
 
         /* WhatsApp Footer Button */
@@ -258,7 +258,7 @@
                 justify-content: space-between;
                 background: #000000;
             }
-            .logo { font-size: 1.3em; }
+            .logo { font-size: 1.5em; }
             .nav-inline {
                 position: fixed;
                 top: 60px;
@@ -273,6 +273,7 @@
                 box-sizing: border-box;
                 flex-direction: column;
                 display: none;
+                z-index: 1000;
             }
             .nav-inline.show { display: flex; }
 
@@ -280,36 +281,36 @@
             
             .hero-options-section { min-height: auto; height: auto; }
             .hero-options-container { flex-direction: column; height: auto; }
-            .hero-option { height: 100vh; min-height: 800px; margin: 0; }
-            .hero-option-content { padding: 30px 20px; margin-bottom: 10px; }
-            .hero-option h2 { font-size: 2em; }
+            .hero-option { height: 100vh; min-height: 300px; margin: 0; }
+            .hero-option-content { padding: 5px 5px; margin-bottom:120px; }
+            .hero-option h2 { font-size: 1.6em; }
             .hero-option p { font-size: 1.5em; }
-            .hero-option-btn { padding: 12px 30px; font-size: 1em; }
+            .hero-option-btn { padding: 10px 30px; font-size: 1.2em; }
             .hero-option-overlay { transform: translateZ(10px); }
             .hero-option:hover .hero-option-overlay { transform: translateZ(10px) scale(1.03); }
             
-            .carousel-hero { height: auto; min-height: 100vh; }
-            .slide-content { padding-bottom: 70px; }
-            .slide-image { max-height: 60vh; margin-bottom: 12px; }
-            .carousel-slide h2 { font-size: 1.8em; margin-bottom: 12px; }
-            .carousel-slide p { font-size: 1.3em; margin-bottom: 12px; }
+            .carousel-hero { height: auto; min-height: 95vh; }
+            .slide-content { padding-bottom: 20px; }
+            .slide-image { max-height: 70vh; margin-bottom: 12px; }
+            .carousel-slide h2 { font-size: 1.5em; margin-bottom: 12px; }
+            .carousel-slide p { font-size: 1.4em; margin-bottom: 12px; }
             .slide-text { width: 90%; padding: 10px; }
             .carousel-btn { width: 35px; height: 35px; font-size: 22px; }
-            .project-link { font-size: 1.4em; padding: 7px 12px; }
-            section { padding: 45px 15px; }
-            .separator-section { padding: 35px 15px; }
-            .separator-section h2, #contacto h2 { font-size: 1.5em; }
-            .separator-section p, #contacto p { font-size: 1.2em; }
-            footer { padding: 12px; }
-            .social-icons { margin: 20px 0; }
-            .social-icons a { width: 45px; height: 45px; font-size: 1.3em; }
-            .btn-whatsapp-footer { padding: 12px 30px; font-size: 1.1em; }
+            .project-link { font-size: 1.0em; padding: 7px 12px; }
+            section { padding: 30px 15px; }
+            .separator-section { padding: 20px 10px; }
+            .separator-section h2, #contacto h2 { font-size: 1.2em; }
+            .separator-section p, #contacto p { font-size: 1.0em; }
+            footer { padding: 10px; }
+            .social-icons { margin: 5px 0; }
+            .social-icons a { width: 45px; height: 45px; font-size: 2em; }
+            .btn-whatsapp-footer { padding: 12px 40px; font-size: 1.1em; }
         }
         
         @media (max-width: 480px) {
             .carousel-slide h2 { font-size: 1.2em; }
-            .carousel-slide p { font-size: 0.8em; }
-            .btn-whatsapp-footer { padding: 10px 25px; font-size: 1em; }
+            .carousel-slide p { font-size: 1.0em; }
+            .btn-whatsapp-footer { padding: 10px 25px; font-size: 1.8em; }
         }
     </style>
 </head>
@@ -333,19 +334,19 @@
                 <div class="hero-option-bg" style="background-image: url('img/h1.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h1-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Diseñamos tu página web.</h2>
+                    <h2>Diseño de Páginas Web.</h2>
                     <p>Una identidad digital solida, te abre puertas a más ventas.</p>
                     <a href="#" class="hero-option-btn">Ver Más</a>
                 </div>
             </div>
             
             <div class="hero-option" 
-                 data-title="Creamos tu Tienda Online."
+                 data-title="Creción de Tienda Online."
                  data-subtitle="Haz más fácil para tus clientes invertir en lo que ofreces.">
                 <div class="hero-option-bg" style="background-image: url('img/h2.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h2-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Creamos tu Tienda Online.</h2>
+                    <h2>Creacion de Tienda Online.</h2>
                     <p>Haz más fácil para tus clientes invertir en lo que ofreces.</p>
                     <a href="#" class="hero-option-btn">Ver Más</a>
                 </div>
@@ -377,7 +378,7 @@
                 <div class="slide-text">
                     <h2>Página Web para tú Empresa / Marca / Servicio.</h2>
                     <p>Desarrollamos soluciones a medida para empresas que quieren crecer, innovar y destacar en su sector.</p>
-                    <a href="#" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> ¿Empezamos con tu proyecto?</a>
+                    <a href="#" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Empecemos con mi proyecto</a>
                 </div>
             </div>
         </div>
@@ -395,9 +396,9 @@
             <div class="slide-content">
                 <img src="img/img_3.png" alt="Gestión de redes sociales" class="slide-image">
                 <div class="slide-text">
-                    <h2>Implementación de Google Ads en Redes Sociales.</h2>
-                    <p>Para posicionarte y que puedan conseguirte con solo un click desde cualquier dispositivo.</p>
-                    <a href="#" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Caso</a>
+                    <h2>Remodelamos tú Marca puliendo los detalles que buscas.</h2>
+                    <p>¿Quieres cambiar tú logo y colores?, ¿Te hace falta una animación para tus conferencias?.</p>
+                    <a href="#" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Trabajemos en mi marca.</a>
                 </div>
             </div>
         </div>
@@ -426,7 +427,7 @@
     </section>
 
     <footer class="section-dark" style="padding: 20px; text-align: center;">
-        <p>© 2025 by: theAstroBruh. "Welcome to the Astro~Verse"</p>
+        <p>© 2025 👨‍💻 with 💙 by: theAstroBruh.</p>
     </footer>
 
     <script>
