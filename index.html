@@ -9,10 +9,12 @@
         :root {
             --color-primary: #26baf5; --color-secondary: #26baf5; --color-dark-bg: #000000; --color-light-bg: #090f20;
             --color-text-light: #f4f4f4; --color-text-dark: #000; --color-gray-text: #ccc; --color-border: #000000;
-            --color-button-hover: #000000; --color-icon-hover: #0f0f10; --color-shadow-primary: rgba(59, 151, 238, 0.4);
+            --color-button-hover: #75cff3; --color-icon-hover: #0f0f10; --color-shadow-primary: rgba(59, 151, 238, 0.4);
             --color-shadow-dark: rgba(0,0,0,0.7);
         }
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--color-dark-bg); color: var(--color-text-light); line-height: 1.6; overflow-x: hidden; }
+        
+        /* Top Bar */
         .top-bar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background: #000000; backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border); }
         .logo { font-size: 1.5em; font-weight: bold; background-image: linear-gradient(120deg, #fff 10%, var(--color-primary) 40%, #fff 70%); background-size: 200% auto; animation: shimmer 4s linear infinite; color: transparent; background-clip: text; -webkit-background-clip: text; white-space: nowrap; cursor: pointer; }
         @keyframes shimmer { 0% { background-position: -100% center; } 100% { background-position: 100% center; } }
@@ -30,11 +32,10 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
         
-        /* Hero section con 3 opciones - Versión masiva */
+        /* Hero Section - Optimizado para bordes */
         .hero-options-section {
             position: relative;
             min-height: 100vh;
-            display: flex;
             padding: 0;
             background-color: var(--color-dark-bg);
             overflow: hidden;
@@ -62,21 +63,56 @@
             justify-content: flex-end;
             align-items: center;
             text-align: center;
+            border-radius: 0;
+            margin: 0;
+            transform-style: preserve-3d;
+            isolation: isolate;
         }
         
         .hero-option::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
             background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
             transition: all 0.5s ease;
+            z-index: 1;
         }
         
         .hero-option:hover::before {
             background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 100%);
+        }
+        
+        .hero-option-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+        
+        .hero-option-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: all 0.5s ease;
+            z-index: 2;
+            transform: translateZ(20px);
+            will-change: transform;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+        
+        .hero-option:hover .hero-option-overlay {
+            transform: translateZ(20px) scale(1.05);
+            filter: drop-shadow(0 0 15px var(--color-shadow-primary));
         }
         
         .hero-option-content {
@@ -85,9 +121,10 @@
             padding: 40px 30px;
             box-sizing: border-box;
             color: white;
-            z-index: 2;
+            z-index: 3;
             max-width: 800px;
             margin-bottom: 120px;
+            transform: translateZ(30px);
         }
         
         .hero-option h2 {
@@ -116,6 +153,9 @@
             font-size: 1.1em;
             transition: all 0.3s ease;
             opacity: 0.9;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
         
         .hero-option-btn:hover {
@@ -126,10 +166,6 @@
         }
         
         /* Animaciones */
-        .hero-option.zoom-in {
-            transform: scale(1.02);
-        }
-        
         .hero-option.clicked {
             animation: optionClick 0.6s ease-out;
         }
@@ -140,91 +176,7 @@
             100% { transform: scale(1); }
         }
         
-        /* Versión móvil */
-        @media (max-width: 768px) {
-            html { font-size: 13px; overflow-x: hidden; }
-            body { overflow-x: hidden; position: relative; }
-
-            .top-bar {
-                padding: 10px 20px;
-                justify-content: space-between;
-                background: #000000;
-            }
-            .logo { font-size: 1.3em; }
-            .nav-inline {
-                position: fixed;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: #1f1f22ee;
-                border: 1px solid var(--color-border);
-                padding: 15px;
-                border-radius: 0;
-                width: 100%;
-                max-width: none;
-                box-sizing: border-box;
-                flex-direction: column;
-                display: none;
-            }
-            .nav-inline.show { display: flex; }
-
-            .hamburger { display: flex; width: 36px; height: 30px; }
-            
-            .hero-options-section {
-                min-height: auto;
-                height: auto;
-            }
-            
-            .hero-options-container {
-                flex-direction: column;
-                height: auto;
-            }
-            
-            .hero-option {
-                height: 100vh;
-                min-height: 500px;
-            }
-            
-            .hero-option-content {
-                padding: 30px 20px;
-                margin-bottom: 40px;
-            }
-            
-            .hero-option h2 {
-                font-size: 2em;
-            }
-            
-            .hero-option p {
-                font-size: 1.1em;
-            }
-            
-            .hero-option-btn {
-                padding: 12px 30px;
-                font-size: 1em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            html { font-size: 12px; }
-            
-            .hero-option {
-                min-height: 450px;
-            }
-            
-            .hero-option h2 {
-                font-size: 1.8em;
-            }
-            
-            .hero-option p {
-                font-size: 1em;
-            }
-            
-            .hero-option-btn {
-                padding: 10px 25px;
-                font-size: 0.9em;
-            }
-        }
-
+        /* Carousel */
         .carousel-hero { position: relative; width: 100%; height: 95vh; overflow: hidden; touch-action: pan-y; }
         .carousel-slide { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box; opacity: 0; transition: opacity 0.8s ease; z-index: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
         .carousel-slide::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; filter: blur(2px) brightness(0.5); z-index: -1; }
@@ -258,7 +210,7 @@
         .section-parallax { background-image: url('img/bg_index.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 600px; }
         footer { text-align: center; }
 
-        /* Estilos para el botón de WhatsApp al final */
+        /* WhatsApp Footer Button */
         .btn-whatsapp-footer {
             display: inline-flex;
             align-items: center;
@@ -277,39 +229,60 @@
             position: relative;
             z-index: 1;
         }
-
-        .btn-whatsapp-footer i {
-            margin-right: 8px;
-        }
-
+        .btn-whatsapp-footer i { margin-right: 8px; }
         .btn-whatsapp-footer::before {
             content: '';
             position: absolute;
-            top: var(--y);
-            left: var(--x);
+            top: var(--y); left: var(--x);
             transform: translate(-50%, -50%);
-            width: 0;
-            height: 0;
+            width: 0; height: 0;
             background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
             transition: width 0.5s, height 0.5s;
             border-radius: 50%;
             z-index: -1;
         }
-
-        .btn-whatsapp-footer:hover::before {
-            width: 250px;
-            height: 250px;
-        }
-
+        .btn-whatsapp-footer:hover::before { width: 250px; height: 250px; }
         .btn-whatsapp-footer:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6);
             background: #128C7E;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
+            html { font-size: 13px; overflow-x: hidden; }
+            body { overflow-x: hidden; position: relative; }
+
+            .top-bar { padding: 10px 20px; }
+            .logo { font-size: 1.3em; }
+            .nav-inline {
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: #1f1f22ee;
+                border: 1px solid var(--color-border);
+                padding: 15px;
+                border-radius: 0;
+                width: 100%;
+                flex-direction: column;
+                display: none;
+            }
+            .nav-inline.show { display: flex; }
+            .hamburger { display: flex; width: 36px; height: 30px; }
+            
+            .hero-options-section { min-height: auto; height: auto; }
+            .hero-options-container { flex-direction: column; height: auto; }
+            .hero-option { height: 100vh; min-height: 500px; margin: 0; }
+            .hero-option-content { padding: 30px 20px; margin-bottom: 40px; }
+            .hero-option h2 { font-size: 2em; }
+            .hero-option p { font-size: 1.1em; }
+            .hero-option-btn { padding: 12px 30px; font-size: 1em; }
+            .hero-option-overlay { transform: translateZ(10px); }
+            .hero-option:hover .hero-option-overlay { transform: translateZ(10px) scale(1.03); }
+            
             .carousel-hero { height: auto; min-height: 100vh; }
-            .slide-content { padding-bottom: 70px; justify-content: flex-end; }
+            .slide-content { padding-bottom: 70px; }
             .slide-image { max-height: 28vh; margin-bottom: 12px; }
             .carousel-slide h2 { font-size: 1.3em; margin-bottom: 12px; }
             .carousel-slide p { font-size: 0.85em; margin-bottom: 12px; }
@@ -318,25 +291,18 @@
             .project-link { font-size: 0.85em; padding: 7px 12px; }
             section { padding: 45px 15px; }
             .separator-section { padding: 35px 15px; }
-            .separator-section h2 { font-size: 1.3em; }
-            .separator-section p { font-size: 0.9em; }
-            #contacto h2 { font-size: 1.3em; }
-            #contacto p { font-size: 0.9em; }
+            .separator-section h2, #contacto h2 { font-size: 1.3em; }
+            .separator-section p, #contacto p { font-size: 0.9em; }
             footer { padding: 12px; }
             .social-icons { margin: 20px 0; }
             .social-icons a { width: 45px; height: 45px; font-size: 1.3em; }
-            .btn-whatsapp-footer {
-                padding: 12px 30px;
-                font-size: 1.1em;
-            }
+            .btn-whatsapp-footer { padding: 12px 30px; font-size: 1.1em; }
         }
+        
         @media (max-width: 480px) {
             .carousel-slide h2 { font-size: 1.2em; }
             .carousel-slide p { font-size: 0.8em; }
-            .btn-whatsapp-footer {
-                padding: 10px 25px;
-                font-size: 1em;
-            }
+            .btn-whatsapp-footer { padding: 10px 25px; font-size: 1em; }
         }
     </style>
 </head>
@@ -351,24 +317,26 @@
         </nav>
     </header>
 
-    <!-- Hero section con 3 opciones - Versión masiva -->
+    <!-- Hero section optimizado -->
     <section class="hero-options-section" id="hero">
         <div class="hero-options-container">
             <div class="hero-option" 
-                 style="background-image: url('img/h1.jpg');"
                  data-title="Diseñamos tu página web."
-                 data-subtitle="Tu mejor herramienta para tu identidad digital.">
+                 data-subtitle="Tu mejor herramienta para tu identidad digital para todo tipo de negocios.">
+                <div class="hero-option-bg" style="background-image: url('img/h1.jpg');"></div>
+                <div class="hero-option-overlay" style="background-image: url('img/h1-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Diseñamos tu página web.</h2>
-                    <p>Tu mejor herramienta para tu identidad digital.</p>
+                    <p>Una identidad digital solida, te abre puertas a más ventas.</p>
                     <a href="#" class="hero-option-btn">Ver Más</a>
                 </div>
             </div>
             
             <div class="hero-option" 
-                 style="background-image: url('img/h2.jpg');"
                  data-title="Creamos tu Tienda Online."
                  data-subtitle="Haz más fácil para tus clientes invertir en lo que ofreces.">
+                <div class="hero-option-bg" style="background-image: url('img/h2.jpg');"></div>
+                <div class="hero-option-overlay" style="background-image: url('img/h2-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Creamos tu Tienda Online.</h2>
                     <p>Haz más fácil para tus clientes invertir en lo que ofreces.</p>
@@ -377,9 +345,10 @@
             </div>
             
             <div class="hero-option" 
-                 style="background-image: url('img/h3.png');"
                  data-title="Integramos Google Ads."
                  data-subtitle="Posicionate y te conseguirán con un click.">
+                <div class="hero-option-bg" style="background-image: url('img/h3.png');"></div>
+                <div class="hero-option-overlay" style="background-image: url('img/h3-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Integramos Google Ads.</h2>
                     <p>Posicionate y te conseguirán con un click.</p>
@@ -450,149 +419,129 @@
     </section>
 
     <footer class="section-dark" style="padding: 20px; text-align: center;">
-        <p>© 2025 theAstroBruh. Todos los derechos reservados.</p>
+        <p>© 2025 by: theAstroBruh. "Welcome to the Astro~Verse"</p>
     </footer>
 
     <script>
-        // Animaciones para las opciones del hero
+        // Hero Options - Optimizado
         const heroOptions = document.querySelectorAll('.hero-option');
         
         heroOptions.forEach(option => {
-            // Efecto hover - zoom in
-            option.addEventListener('mouseenter', () => {
-                option.classList.add('zoom-in');
+            const bg = option.querySelector('.hero-option-bg');
+            const overlay = option.querySelector('.hero-option-overlay');
+            const content = option.querySelector('.hero-option-content');
+            
+            option.addEventListener('mousemove', (e) => {
+                const rect = option.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const moveX = (x - centerX) / 20;
+                const moveY = (y - centerY) / 20;
+                
+                bg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+                overlay.style.transform = `translateZ(20px) translate(${moveX * 0.5}px, ${moveY * 0.5}px) scale(1.05)`;
+                content.style.transform = `translateZ(30px) translate(${moveX * 0.3}px, ${moveY * 0.3}px)`;
             });
             
-            option.addEventListener('mouseleave', () => {
-                option.classList.remove('zoom-in');
-            });
-            
-            // Efecto click
             option.addEventListener('click', (e) => {
                 if (!e.target.classList.contains('hero-option-btn')) {
                     option.classList.add('clicked');
-                    setTimeout(() => {
-                        option.classList.remove('clicked');
-                    }, 600);
-                    
-                    // Aquí puedes agregar la acción que ocurre al hacer click
+                    setTimeout(() => option.classList.remove('clicked'), 600);
                     console.log('Opción seleccionada:', option.dataset.title);
                 }
             });
         });
 
-        // Hero Carrusel
+        // Carousel - Optimizado
         const carouselHero = document.getElementById('carousel-hero');
         const slides = Array.from(document.querySelectorAll('.carousel-slide'));
         let currentIndex = 0;
-        let startX, startY, moveX, moveY;
-        let isDragging = false;
         let autoSlideInterval;
-        let scrollTopBeforeDrag = 0;
-        let isScrollingVertically = false;
 
         function updateCarousel() {
             slides.forEach((slide, index) => {
-                slide.classList.remove('current');
-                if (index === currentIndex) slide.classList.add('current');
+                slide.classList.toggle('current', index === currentIndex);
             });
         }
+        
         function moveSlide(direction) {
             currentIndex = (currentIndex + direction + slides.length) % slides.length;
             updateCarousel();
             resetAutoSlide();
         }
+        
         function startAutoSlide() {
             autoSlideInterval = setInterval(() => moveSlide(1), 15000);
         }
+        
         function resetAutoSlide() {
             clearInterval(autoSlideInterval);
             startAutoSlide();
         }
-        function handleTouchStart(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-            isDragging = true;
-            isScrollingVertically = false;
-            scrollTopBeforeDrag = carouselHero.scrollTop;
+        
+        // Eventos táctiles y de ratón unificados
+        function handleDragStart(e) {
+            this.startX = e.clientX || e.touches[0].clientX;
+            this.startY = e.clientY || e.touches[0].clientY;
+            this.isDragging = true;
+            this.isScrollingVertically = false;
+            this.scrollTopBeforeDrag = carouselHero.scrollTop;
             resetAutoSlide();
         }
-        function handleTouchMove(e) {
-            if (!isDragging) return;
-            moveX = e.touches[0].clientX;
-            moveY = e.touches[0].clientY;
-            const diffX = Math.abs(startX - moveX);
-            const diffY = Math.abs(startY - moveY);
-            if (!isScrollingVertically && diffY > 5 && diffY > diffX) {
-                isScrollingVertically = true;
+        
+        function handleDragMove(e) {
+            if (!this.isDragging) return;
+            const moveX = e.clientX || e.touches[0].clientX;
+            const moveY = e.clientY || e.touches[0].clientY;
+            const diffX = Math.abs(this.startX - moveX);
+            const diffY = Math.abs(this.startY - moveY);
+            
+            if (!this.isScrollingVertically && diffY > 5 && diffY > diffX) {
+                this.isScrollingVertically = true;
             }
-            if (!isScrollingVertically && diffX > diffY) {
+            
+            if (!this.isScrollingVertically && diffX > diffY) {
                 e.preventDefault();
             }
         }
-        function handleTouchEnd() {
-            if (!isDragging) return;
-            const diffX = startX - moveX;
-            const diffY = Math.abs(startY - moveY);
-            if (!isScrollingVertically && Math.abs(diffX) > 50) {
-                if (diffX > 50) moveSlide(1);
-                else if (diffX < -50) moveSlide(-1);
+        
+        function handleDragEnd() {
+            if (!this.isDragging) return;
+            const diffX = this.startX - this.moveX;
+            
+            if (!this.isScrollingVertically && Math.abs(diffX) > 50) {
+                moveSlide(diffX > 50 ? 1 : -1);
             }
-            isDragging = false;
-            isScrollingVertically = false;
+            
+            this.isDragging = false;
+            this.isScrollingVertically = false;
         }
-        function handleMouseDown(e) {
-            startX = e.clientX;
-            startY = e.clientY;
-            isDragging = true;
-            isScrollingVertically = false;
-            scrollTopBeforeDrag = carouselHero.scrollTop;
-            e.preventDefault();
-            resetAutoSlide();
-        }
-        function handleMouseMove(e) {
-            if (!isDragging) return;
-            moveX = e.clientX;
-            moveY = e.clientY;
-            const diffX = Math.abs(startX - moveX);
-            const diffY = Math.abs(startY - moveY);
-            if (!isScrollingVertically && diffY > 5 && diffY > diffX) {
-                isScrollingVertically = true;
-                const scrollDiff = startY - moveY;
-                carouselHero.scrollTop = scrollTopBeforeDrag + scrollDiff;
-            }
-        }
-        function handleMouseUp() {
-            if (!isDragging) return;
-            const diffX = startX - moveX;
-            const diffY = Math.abs(startY - moveY);
-            if (!isScrollingVertically && Math.abs(diffX) > 50) {
-                if (diffX > 50) moveSlide(1);
-                else if (diffX < -50) moveSlide(-1);
-            }
-            isDragging = false;
-            isScrollingVertically = false;
-        }
-
-        carouselHero.addEventListener('touchstart', handleTouchStart, { passive: true });
-        carouselHero.addEventListener('touchmove', handleTouchMove, { passive: false });
-        carouselHero.addEventListener('touchend', handleTouchEnd, { passive: true });
-        carouselHero.addEventListener('mousedown', handleMouseDown);
-        carouselHero.addEventListener('mousemove', handleMouseMove);
-        carouselHero.addEventListener('mouseup', handleMouseUp);
+        
+        carouselHero.addEventListener('touchstart', handleDragStart, { passive: true });
+        carouselHero.addEventListener('touchmove', handleDragMove, { passive: false });
+        carouselHero.addEventListener('touchend', handleDragEnd, { passive: true });
+        carouselHero.addEventListener('mousedown', handleDragStart);
+        carouselHero.addEventListener('mousemove', handleDragMove);
+        carouselHero.addEventListener('mouseup', handleDragEnd);
         carouselHero.addEventListener('mouseleave', () => {
-            isDragging = false;
-            isScrollingVertically = false;
+            this.isDragging = false;
+            this.isScrollingVertically = false;
         });
+        
         startAutoSlide();
 
         // Menú hamburguesa
         const hamburger = document.getElementById('hamburger');
         const nav = document.getElementById('nav');
+        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             nav.classList.toggle('show');
         });
+        
         nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (nav.classList.contains('show')) {
@@ -610,20 +559,13 @@
             setTimeout(() => logo.classList.remove('clicked'), 300);
         });
 
-        // Preload de imágenes para el hero
-        const heroImages = [
-            'img/h1.jpg',
-            'img/h2.jpg',
-            'img/h3.jpg'
-        ];
-        
-        heroImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
+        // Preload de imágenes
+        ['img/h1.jpg', 'img/h2.jpg', 'img/h3.jpg', 'img/h1-overlay.png', 'img/h2-overlay.png', 'img/h3-overlay.png'].forEach(src => {
+            new Image().src = src;
         });
 
         // Efecto de iluminación en botones
-        document.querySelectorAll('.btn-nav, .btn-primary, .project-link, .btn-whatsapp-footer, .hero-option-btn').forEach(button => {
+        document.querySelectorAll('.btn-nav, .project-link, .btn-whatsapp-footer, .hero-option-btn').forEach(button => {
             button.addEventListener('mousemove', (e) => {
                 const rect = button.getBoundingClientRect();
                 button.style.setProperty('--x', (e.clientX - rect.left) + 'px');
