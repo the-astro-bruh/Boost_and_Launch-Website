@@ -129,16 +129,8 @@
         
         .hero-option h2 {
             font-size: 2.5em;
-            margin-bottom: 10px;
+            margin-bottom: 180px;
             text-shadow: 8px 8px 11px rgba(0, 0, 0, 0.8);
-            transition: all 0.5s ease;
-        }
-        
-        .hero-option p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            text-shadow: 8px 8px 11px rgba(0, 0, 0, 0.8);
-            opacity: 0.9;
             transition: all 0.5s ease;
         }
         
@@ -204,8 +196,8 @@
         .section-dark { background: var(--color-dark-bg); }
         .section-light { background: var(--color-light-bg); }
         .separator-section { padding: 60px 20px; text-align: center; background: linear-gradient(to bottom, var(--color-dark-bg), var(--color-light-bg)); position: relative; z-index: 5; }
-        .social-icons { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
-        .social-icons a { width: 50px; height: 50px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--color-text-dark); color: var(--color-primary); font-size: 1.5em; transition: all 0.3s ease; }
+        .social-icons { display: flex; justify-content: center; gap: 30px; margin: 10px 0; }
+        .social-icons a { width: 70px; height: 70px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--color-text-dark); color: var(--color-primary); font-size: 2em; transition: all 0.3s ease; }
         .social-icons a:hover { background: var(--color-primary); color: var(--color-icon-hover); transform: translateY(-5px); }
         .section-parallax { background-image: url('img/bg_index.jpg'); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; height: 480px; }
         footer { text-align: center; }
@@ -250,7 +242,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            html { font-size: 13px; overflow-x: hidden; }
+            html { font-size: 11px; overflow-x: hidden; }
             body { overflow-x: hidden; position: relative; }
 
             .top-bar {
@@ -281,10 +273,9 @@
             
             .hero-options-section { min-height: auto; height: auto; }
             .hero-options-container { flex-direction: column; height: auto; }
-            .hero-option { height: 100vh; min-height: 300px; margin: 0; }
-            .hero-option-content { padding: 5px 5px; margin-bottom:120px; }
-            .hero-option h2 { font-size: 1.6em; }
-            .hero-option p { font-size: 1.5em; }
+            .hero-option { height: 70vh; min-height: 300px; margin: 0; } /* Adjusted height for "3 long parts" */
+            .hero-option-content { padding: 5px 5px; margin-bottom: 60px; } /* Adjusted margin-bottom */
+            .hero-option h2 { font-size: 1.4em; }
             .hero-option-btn { padding: 10px 30px; font-size: 1.2em; }
             .hero-option-overlay { transform: translateZ(10px); }
             .hero-option:hover .hero-option-overlay { transform: translateZ(10px) scale(1.03); }
@@ -303,7 +294,7 @@
             .separator-section p, #contacto p { font-size: 1.0em; }
             footer { padding: 10px; }
             .social-icons { margin: 5px 0; }
-            .social-icons a { width: 45px; height: 45px; font-size: 2em; }
+            .social-icons a { width: 55px; height: 55px; font-size: 2em; }
             .btn-whatsapp-footer { padding: 12px 40px; font-size: 1.1em; }
         }
         
@@ -325,39 +316,38 @@
         </nav>
     </header>
 
-    <!-- Hero section optimizado -->
     <section class="hero-options-section" id="hero">
         <div class="hero-options-container">
             <div class="hero-option" 
                  data-title="Diseñamos tu página web."
-                 data-subtitle="Tu mejor herramienta para tu identidad digital para todo tipo de negocios.">
+                 data-subtitle="Tu mejor herramienta para tu identidad digital para todo tipo de negocios."
+                 data-slide="0">
                 <div class="hero-option-bg" style="background-image: url('img/h1.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h1-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Diseño de Páginas Web.</h2>
-                    <p>Una identidad digital solida, te abre puertas a más ventas.</p>
                 </div>
             </div>
             
             <div class="hero-option" 
                  data-title="Creción de Tienda Online."
-                 data-subtitle="Haz más fácil para tus clientes invertir en lo que ofreces.">
+                 data-subtitle="Haz más fácil para tus clientes invertir en lo que ofreces."
+                 data-slide="1">
                 <div class="hero-option-bg" style="background-image: url('img/h2.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h2-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Creacion de Tienda Online.</h2>
-                    <p>Haz más fácil para tus clientes invertir en lo que ofreces.</p>
                 </div>
             </div>
             
             <div class="hero-option" 
                  data-title="Remodelación de Marca."
-                 data-subtitle="Posicionate y te conseguirán con un click.">
+                 data-subtitle="Posicionate y te conseguirán con un click."
+                 data-slide="2">
                 <div class="hero-option-bg" style="background-image: url('img/h3.jpg');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h3-overlay.png');"></div>
                 <div class="hero-option-content">
                     <h2>Remodelación de Marca.</h2>
-                    <p>Logo, imagen corporativa, pulimos lo que necesites.</p>
                 </div>
             </div>
         </div>
@@ -414,9 +404,6 @@
         <h2><i class="fa-solid fa-headset"></i> Hablemos de tu Próximo Proyecto</h2>
         <p>Conoce un poco más sobre nuestros otros trabajos.</p>
         <div class="social-icons">
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
             <a href="https://youtu.be/dQw4w9WgXcQ?si=Mv0nbO47jAdIntYn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://www.linkedin.com/in/leonel-e-rodr%C3%ADguez-s-66390335b/" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         </div>
@@ -455,7 +442,17 @@
                 if (!e.target.classList.contains('hero-option-btn')) {
                     option.classList.add('clicked');
                     setTimeout(() => option.classList.remove('clicked'), 600);
-                    console.log('Opción seleccionada:', option.dataset.title);
+                    
+                    // Obtener el número de slide desde el atributo data-slide
+                    const slideIndex = parseInt(option.getAttribute('data-slide'));
+                    
+                    // Cambiar al slide correspondiente
+                    currentIndex = slideIndex;
+                    updateCarousel();
+                    resetAutoSlide();
+                    
+                    // Desplazarse suavemente al carrusel
+                    document.getElementById('carousel-hero').scrollIntoView({ behavior: 'smooth' });
                 }
             });
         });
