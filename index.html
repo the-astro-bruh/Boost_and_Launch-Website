@@ -14,6 +14,48 @@
         }
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: var(--color-dark-bg); color: var(--color-text-light); line-height: 1.6; overflow-x: hidden; }
         
+        /* Scrolling Info Bar */
+        .info-bar {
+            width: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.9), rgba(0,0,0,0.9));
+            padding: 6px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 99; /* Below top-bar, above hero */
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+        }
+
+        .info-bar-content {
+            display: inline-block;
+            padding-left: 100%; /* Start off-screen to the right */
+            animation: scroll-left 40s linear infinite; /* Adjust duration for speed */
+            font-size: 1.6em;
+            font-weight: bold;
+            color: var(--color-text-light);
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .info-bar-text {
+            display: inline-block;
+            margin-right: 100px; /* Space between phrases */
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+
+        .info-bar-text span {
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-100%); }
+        }
+
         /* Top Bar */
         .top-bar { position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background: #000000; backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-border); }
         .logo { font-size: 2.0em; font-weight: bold; background-image: linear-gradient(120deg, #fff 10%, var(--color-primary) 40%, #fff 70%); background-size: 200% auto; animation: shimmer 4s linear infinite; color: transparent; background-clip: text; -webkit-background-clip: text; white-space: nowrap; cursor: pointer; }
@@ -32,7 +74,7 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
         
-        /* Hero Section - Optimizado para bordes */
+        /* Hero Section - Optimizado para bordes, 3D y animación de encendido */
         .hero-options-section {
             position: relative;
             min-height: 100vh;
@@ -63,10 +105,12 @@
             justify-content: flex-end;
             align-items: center;
             text-align: center;
-            border-radius: 0;
-            margin: 0;
+            border-radius: 50px; /* Rounded corners */
+            margin: 22px; /* Space between "buttons" */
             transform-style: preserve-3d;
             isolation: isolate;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1); /* 3D effect */
+            border: 2px solid transparent; /* For ignition animation */
         }
         
         .hero-option::before {
@@ -76,6 +120,7 @@
             background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
             transition: all 0.5s ease;
             z-index: 1;
+            border-radius: 25px; /* Match parent border-radius */
         }
         
         .hero-option:hover::before {
@@ -90,8 +135,9 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            transition: transform 0.5s ease;
+            transition: transform 0.2s ease-out; /* Faster transition for parallax */
             will-change: transform;
+            border-radius: 25px; /* Match parent border-radius */
         }
         
         .hero-option-overlay {
@@ -103,11 +149,11 @@
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            transition: all 0.5s ease;
+            transition: transform 0.1s ease-out, filter 0.3s ease; /* Faster transition for 3D rotation */
             z-index: 2;
             transform: translateZ(20px);
             will-change: transform;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 0 44px rgba(0,0,0,0.5));
         }
         
         .hero-option:hover .hero-option-overlay {
@@ -125,6 +171,7 @@
             max-width: 600px;
             margin-bottom: 80px;
             transform: translateZ(30px);
+            transition: transform 0.1s ease-out; /* Faster transition for 3D rotation */
         }
         
         .hero-option h2 {
@@ -166,6 +213,34 @@
             0% { transform: scale(1); }
             50% { transform: scale(0.98); }
             100% { transform: scale(1); }
+        }
+
+        /* Ignition animation for hero options */
+        .hero-option.ignite {
+            animation: ignite-border 0.8s ease-out forwards;
+        }
+
+        @keyframes ignite-border {
+            0% {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
+                border: 2px solid transparent;
+            }
+            25% {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 25px var(--color-primary);
+                border: 2px solid var(--color-primary);
+            }
+            50% {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
+                border: 2px solid transparent;
+            }
+            75% {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 25px var(--color-primary);
+                border: 2px solid var(--color-primary);
+            }
+            100% {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.1);
+                border: 2px solid transparent;
+            }
         }
         
         /* Carousel */
@@ -271,11 +346,16 @@
 
             .hamburger { display: flex; width: 46px; height: 30px; }
             
+            .info-bar-content { animation: scroll-left 50s linear infinite; } /* Faster scroll on mobile */
+            .info-bar-text { font-size: 1.1em; margin-right: 50px; } /* Less space on mobile */
+
             .hero-options-section { min-height: auto; height: auto; }
             .hero-options-container { flex-direction: column; height: auto; }
-            .hero-option { height: 70vh; min-height: 300px; margin: 0; } /* Adjusted height for "3 long parts" */
+            .hero-option { height: 70vh; min-height: 200px; margin: 11px; border-radius: 33px; } /* Adjusted height, margin, and border-radius for mobile */
+            .hero-option::before { border-radius: 15px; }
+            .hero-option-bg { border-radius: 15px; }
             .hero-option-content { padding: 5px 5px; margin-bottom: 60px; } /* Adjusted margin-bottom */
-            .hero-option h2 { font-size: 2.0em; margin-bottom: -30px; }
+            .hero-option h2 { font-size: 1.6em; margin-bottom: -40px; }
             .hero-option-btn { padding: 10px 30px; font-size: 1.2em; }
             .hero-option-overlay { transform: translateZ(10px); }
             .hero-option:hover .hero-option-overlay { transform: translateZ(10px) scale(1.03); }
@@ -316,38 +396,45 @@
         </nav>
     </header>
 
+    <div class="info-bar">
+        <div class="info-bar-content">
+            <span class="info-bar-text">Hola, bienvenido a <span>Boost & Launch</span> ¿Cual de nuestros servicios necesitas?</span>
+            <span class="info-bar-text">Agenda una <span>consulta gratuita</span> hoy mismo.</span>
+            <span class="info-bar-text">Despega tu negocio con <span>estrategias digitales</span> a medida.</span>
+            <span class="info-bar-text">Atrae a tus clientes ideales con un <span>diseño impactante</span>.</span>
+            <span class="info-bar-text">¡No esperes más! Tu <span>éxito online</span> comienza aquí.</span>
+        </div>
+    </div>
+
     <section class="hero-options-section" id="hero">
         <div class="hero-options-container">
             <div class="hero-option" 
                  data-title="Diseñamos tu página web."
-                 data-subtitle="Tu mejor herramienta para tu identidad digital para todo tipo de negocios."
                  data-slide="0">
                 <div class="hero-option-bg" style="background-image: url('img/h1.gif');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h1-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Diseño de Páginas Web.</h2>
+                    <h2>~ Diseño de Website ~</h2>
                 </div>
             </div>
             
             <div class="hero-option" 
-                 data-title="Creción de Tienda Online."
-                 data-subtitle="Haz más fácil para tus clientes invertir en lo que ofreces."
+                 data-title="~ Tienda Online ~"
                  data-slide="1">
                 <div class="hero-option-bg" style="background-image: url('img/h2.gif');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h2-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Creacion de Tienda Online.</h2>
+                    <h2>~ Tienda Online ~</h2>
                 </div>
             </div>
             
             <div class="hero-option" 
                  data-title="Remodelación de Marca."
-                 data-subtitle="Posicionate y te conseguirán con un click."
                  data-slide="2">
                 <div class="hero-option-bg" style="background-image: url('img/h3.gif');"></div>
                 <div class="hero-option-overlay" style="background-image: url('img/h3-overlay.png');"></div>
                 <div class="hero-option-content">
-                    <h2>Remodelación de Marca.</h2>
+                    <h2>~ Remodelado de Marca ~</h2>
                 </div>
             </div>
         </div>
@@ -363,7 +450,7 @@
             <div class="slide-content">
                 <img src="img/img_1.png" alt="Sitio web corporativo" class="slide-image">
                 <div class="slide-text">
-                    <h2>¿Necesitas un Website?</h2>
+                    <h2>Te diseñamos la Página Web que necesitas.</h2>
                     <p>Destaca con una Web Personalizada, tu empresa merece más que una plantilla más.</p>
                     <a href="#contacto" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Necesito mi Página Web</a>
                 </div>
@@ -373,7 +460,7 @@
             <div class="slide-content">
                 <img src="img/img_2.png" alt="Tienda online" class="slide-image">
                 <div class="slide-text">
-                    <h2>Imagina vender con un click.</h2>
+                    <h2>Imagina comprar con un click.</h2>
                     <p>Te creamos la tienda que quieres con las funciones que necesitas.</p>
                     <a href="#contacto" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Quiero una Tienda Online</a>
                 </div>
@@ -383,7 +470,7 @@
             <div class="slide-content">
                 <img src="img/img_3.png" alt="Gestión de redes sociales" class="slide-image">
                 <div class="slide-text">
-                    <h2>¿Buscas hacer cambios a tú marca?.</h2>
+                    <h2>¿Buscas hacer cambios a tú marca?</h2>
                     <p>¿Quieres cambiar tú logo?, ¿Los colores?, ¿Te hace falta una animación? Consultanos y te cotizamos.</p>
                     <a href="#contacto" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Empecemos con mi Proyecto.</a>
                 </div>
@@ -423,6 +510,7 @@
             const overlay = option.querySelector('.hero-option-overlay');
             const content = option.querySelector('.hero-option-content');
             
+            // Parallax and 3D rotation for PNG renders
             option.addEventListener('mousemove', (e) => {
                 const rect = option.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -430,30 +518,51 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const moveX = (x - centerX) / 20;
-                const moveY = (y - centerY) / 20;
+                // Parallax for background GIF (subtle)
+                const moveX_bg = (x - centerX) / 40; // Smaller divisor for more subtle effect
+                const moveY_bg = (y - centerY) / 40;
+                bg.style.transform = `translate(${moveX_bg}px, ${moveY_bg}px) scale(1.02)`; // Slight scale for depth
+
+                // 3D rotation for PNG overlay
+                const rotateY = (x - centerX) / 10; // Adjust divisor for rotation intensity
+                const rotateX = (y - centerY) / -10; // Invert Y for natural tilt
+                overlay.style.transform = `translateZ(20px) rotateY(${rotateY}deg) rotateX(${rotateX}deg) scale(1.05)`;
                 
-                bg.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-                overlay.style.transform = `translateZ(20px) translate(${moveX * 0.5}px, ${moveY * 0.5}px) scale(1.05)`;
-                content.style.transform = `translateZ(30px) translate(${moveX * 0.3}px, ${moveY * 0.3}px)`;
+                // Content movement (subtle)
+                const moveX_content = (x - centerX) / 60;
+                const moveY_content = (y - centerY) / 60;
+                content.style.transform = `translateZ(30px) translate(${moveX_content}px, ${moveY_content}px)`;
+            });
+
+            option.addEventListener('mouseleave', () => {
+                bg.style.transform = `translate(0px, 0px) scale(1)`;
+                overlay.style.transform = `translateZ(20px) rotateY(0deg) rotateX(0deg) scale(1)`;
+                content.style.transform = `translateZ(30px) translate(0px, 0px)`;
             });
             
+            // Ignition animation on click
             option.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('hero-option-btn')) {
-                    option.classList.add('clicked');
-                    setTimeout(() => option.classList.remove('clicked'), 600);
+                // Prevent default link behavior if it were a direct link, but here it's a carousel trigger
+                e.preventDefault(); 
+
+                // Add ignition animation class
+                option.classList.add('ignite');
+
+                // After animation, trigger the carousel change and scroll
+                setTimeout(() => {
+                    option.classList.remove('ignite'); // Remove class after animation
                     
-                    // Obtener el número de slide desde el atributo data-slide
+                    // Get slide index from data attribute
                     const slideIndex = parseInt(option.getAttribute('data-slide'));
                     
-                    // Cambiar al slide correspondiente
+                    // Change to corresponding slide
                     currentIndex = slideIndex;
                     updateCarousel();
                     resetAutoSlide();
                     
-                    // Desplazarse suavemente al carrusel
+                    // Smooth scroll to carousel
                     document.getElementById('carousel-hero').scrollIntoView({ behavior: 'smooth' });
-                }
+                }, 800); // Duration of ignite-border animation
             });
         });
 
@@ -512,10 +621,10 @@
         
         function handleDragEnd() {
             if (!this.isDragging) return;
-            const diffX = this.startX - this.moveX;
+            const diffX = this.startX - (this.moveX || (this.isScrollingVertically ? this.startX : (e.clientX || e.changedTouches[0].clientX))); // Ensure moveX is defined
             
             if (!this.isScrollingVertically && Math.abs(diffX) > 50) {
-                moveSlide(diffX > 50 ? 1 : -1);
+                moveSlide(diffX > 0 ? 1 : -1);
             }
             
             this.isDragging = false;
@@ -526,11 +635,16 @@
         carouselHero.addEventListener('touchmove', handleDragMove, { passive: false });
         carouselHero.addEventListener('touchend', handleDragEnd, { passive: true });
         carouselHero.addEventListener('mousedown', handleDragStart);
-        carouselHero.addEventListener('mousemove', handleDragMove);
+        carouselHero.addEventListener('mousemove', (e) => {
+            if (carouselHero.isDragging) {
+                carouselHero.moveX = e.clientX; // Store current mouse X for drag end calculation
+                handleDragMove.call(carouselHero, e);
+            }
+        });
         carouselHero.addEventListener('mouseup', handleDragEnd);
         carouselHero.addEventListener('mouseleave', () => {
-            this.isDragging = false;
-            this.isScrollingVertically = false;
+            carouselHero.isDragging = false;
+            carouselHero.isScrollingVertically = false;
         });
         
         startAutoSlide();
@@ -562,7 +676,7 @@
         });
 
         // Preload de imágenes
-        ['img/h1.jpg', 'img/h2.jpg', 'img/h3.jpg', 'img/h1-overlay.png', 'img/h2-overlay.png', 'img/h3-overlay.png'].forEach(src => {
+        ['img/h1.gif', 'img/h2.gif', 'img/h3.gif', 'img/h1-overlay.png', 'img/h2-overlay.png', 'img/h3-overlay.png'].forEach(src => {
             new Image().src = src;
         });
 
