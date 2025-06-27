@@ -5,7 +5,7 @@ https://the-astro-bruh.github.io/Boost_and_Launch-Website/index.html
 
 Website Prototype v0.8.9 - Boost & Launch
 
-
+- - -
 
 🚀 Experiencia de Usuario Inicial
 Barra de Información Desplazable: Una fina barra horizontal superior, antes del hero, presenta mensajes llamativos que invitan a la acción. El texto se desplaza suavemente de derecha a izquierda, capturando la atención del visitante inmediatamente.
@@ -16,8 +16,7 @@ Encabezado (Top Bar) Dinámico: El logo "Boost & Launch 🚀" tiene un efecto br
 
 Menú Hamburguesa (Responsive): En dispositivos móviles, el menú de navegación se transforma en un icono de hamburguesa, desplegándose de forma fluida para una navegación intuitiva.
 
-
-
+- - -
 
 ✨ Sección Hero Interactiva
 El primer bloque principal ofrece una selección visual de servicios clave, diseñada para ser altamente interactiva:
@@ -30,8 +29,7 @@ Efecto Parallax en GIFs de Fondo: Los fondos animados (GIFs) de cada opción de 
 
 Animación de "Encendido" al Clic: Al hacer clic en una opción del Hero, se activa una breve animación visual de "encendido" (un destello de luz o un borde pulsante) antes de que la página se desplace al carrusel de proyectos correspondiente, vinculando visualmente la acción con el contenido.
 
-
-
+- - -
 
 🖼️ Carrusel de Proyectos (Portafolio)
 La sección del portafolio es un carrusel interactivo que muestra los proyectos de forma destacada:
@@ -42,8 +40,7 @@ Transiciones Suaves: Los cambios entre diapositivas son fluidos, mejorando la ex
 
 Contenido Resaltado: Imágenes de proyectos grandes y texto descriptivo con un efecto "shine" para captar la atención. Cada diapositiva incluye un llamado a la acción claro, como "Necesito mi Página Web".
 
-
-
+- - -
 
 📞 Llamados a la Acción y Contacto
 La web está diseñada para guiar al usuario hacia el contacto:
@@ -57,3 +54,5 @@ Conexión Social: Acceso directo a perfiles de redes sociales (YouTube, LinkedIn
 Botón Flotante de WhatsApp: Un prominente botón al final de la página invita a los visitantes a chatear directamente por WhatsApp, con un efecto visual interactivo.
 
 Este prototipo v0.8.9 busca combinar una estética moderna con funcionalidades interactivas para ofrecer una experiencia de usuario memorable y fomentar la conversión.
+
+- - -
