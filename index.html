@@ -466,7 +466,9 @@
             padding: 20px 0;
             position: relative;
             z-index: 2;
-            overflow: hidden; /* Hide scrollbar and prevent dragging */
+            overflow-x: auto; /* Allow horizontal scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            scroll-snap-type: x mandatory; /* Snap to images */
         }
 
         .image-carousel {
@@ -474,7 +476,7 @@
             gap: 20px;
             padding: 0 50px;
             flex-shrink: 0;
-            justify-content: center; /* Center items within the flex container */
+            justify-content: flex-start; /* Align items to the start for scrolling */
             align-items: flex-end; /* Align items to the bottom to place caption below */
         }
 
@@ -493,11 +495,12 @@
             transition: transform 0.5s ease, box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
             cursor: pointer; /* Change to pointer for clickability */
             position: relative; /* For caption positioning */
+            scroll-snap-align: center; /* Snap to center of each item */
         }
 
-        .carousel-image-wrapper.enlarged {
-            width: 320px; /* Larger size */
-            height: 320px; /* Larger size */
+        .carousel-image-wrapper:hover {
+            width: 320px; /* Larger size on hover */
+            height: 320px; /* Larger size on hover */
             transform: scale(1.05); /* Slightly more emphasis */
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-primary);
         }
@@ -510,7 +513,7 @@
             transition: transform 0.5s ease; /* Smooth transition for image scale */
         }
 
-        .carousel-image-wrapper.enlarged .carousel-image {
+        .carousel-image-wrapper:hover .carousel-image {
             transform: scale(1.05); /* Slightly enlarge image within enlarged wrapper */
         }
 
@@ -528,21 +531,21 @@
             transition: opacity 0.3s ease;
         }
 
-        .carousel-image-wrapper.enlarged .carousel-image-caption {
-            opacity: 1; /* Show caption when enlarged */
+        .carousel-image-wrapper:hover .carousel-image-caption {
+            opacity: 1; /* Show caption on hover */
         }
 
         /* Modal for larger image view */
         .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
             left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9);
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
             justify-content: center;
             align-items: center;
         }
@@ -763,14 +766,46 @@
                 padding: 0 5px; /* Adjust padding for tablets */
                 line-height: 1.4;
             }
-            /* Further reduce image size for very small screens */
-            .carousel-image-wrapper {
-                width: 140px;
-                height: 140px;
+            
+            /* Responsive adjustments for .section-parallax carousel */
+            .section-parallax {
+                height: 380px; /* Adjust height for smaller screens */
             }
-            .carousel-image-wrapper.enlarged {
-                width: 200px; /* Larger size */
-                height: 200px; /* Larger size */
+
+            .image-carousel-container {
+                padding: 10px 0;
+            }
+
+            .image-carousel {
+                gap: 10px; /* Reduce gap between images */
+                padding: 0 20px; /* Adjust padding for mobile */
+                justify-content: center; /* Center items on mobile by default */
+            }
+
+            .carousel-image-wrapper {
+                width: 180px; /* Larger size for mobile */
+                height: 180px; /* Larger size for mobile */
+            }
+            
+            .carousel-image-wrapper:hover {
+                width: 200px; /* Slightly larger on hover */
+                height: 200px; /* Slightly larger on hover */
+                transform: scale(1.03); /* Smaller scale effect for mobile */
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-primary);
+            }
+
+            .carousel-image {
+                width: 95%; /* Make image take more space */
+                height: 95%;
+            }
+
+            .carousel-image-wrapper:hover .carousel-image {
+                transform: scale(1.02); /* Less aggressive image enlargement on hover */
+            }
+
+            .carousel-image-caption {
+                font-size: 0.8em; /* Smaller caption font */
+                padding: 3px 8px;
             }
         }
         @media (max-width: 480px) {
@@ -798,12 +833,12 @@
             }
             /* Further reduce image size for very small screens */
             .carousel-image-wrapper {
-                width: 100px;
-                height: 100px;
+                width: 150px; /* Even larger size for very small mobile */
+                height: 150px; /* Even larger size for very small mobile */
             }
-            .carousel-image-wrapper.enlarged {
-                width: 150px; /* Larger size */
-                height: 150px; /* Larger size */
+            .carousel-image-wrapper:hover {
+                width: 165px; /* Even smaller enlarged size for very small mobile */
+                height: 165px; /* Even smaller enlarged size for very small mobile */
             }
         }
     </style>
@@ -995,7 +1030,8 @@
         
         // Image Parallax Carousel elements
         const imageParallaxCarousel = document.getElementById('imageParallaxCarousel');
-        const imageCarouselWrappers = document.querySelectorAll('.image-carousel-wrapper');
+        const imageCarouselWrappers = document.querySelectorAll('.carousel-image-wrapper');
+        const imageParallaxCarouselContainer = document.getElementById('imageParallaxCarouselContainer'); // Added this for scroll handling
         let currentImageParallaxIndex = 0;
         let imageParallaxInterval;
 
@@ -1041,7 +1077,7 @@
                 setTimeout(() => {
                     preloader.style.display = 'none';
                     startParallaxAnimation();
-                    startImageParallaxAnimation(); // Start the new image parallax animation
+                    // startImageParallaxAnimation(); // No longer needed for draggable carousel
                     // Start info bar rotation once preloader is hidden
                     setInterval(rotateInfoTexts, 4000); 
                 }, 500);
@@ -1303,37 +1339,6 @@
             setTimeout(() => whatsappFloat.classList.remove('clicked'), 300);
         });
 
-        // --- New: Image Parallax Carousel Automatic Cycle and Enlargement ---
-        function updateImageParallaxCarousel() {
-            imageCarouselWrappers.forEach((wrapper, index) => {
-                wrapper.classList.remove('enlarged');
-                // Center the small image within its wrapper when not enlarged
-                wrapper.querySelector('.carousel-image').style.transform = 'scale(1)'; 
-            });
-
-            const currentWrapper = imageCarouselWrappers[currentImageParallaxIndex];
-            currentWrapper.classList.add('enlarged');
-            // Enlarge the image within the enlarged wrapper
-            currentWrapper.querySelector('.carousel-image').style.transform = 'scale(1.05)'; 
-
-            // Calculate scroll position to center the enlarged image
-            const containerWidth = imageParallaxCarouselContainer.offsetWidth;
-            const wrapperWidth = currentWrapper.offsetWidth;
-            const scrollLeft = currentWrapper.offsetLeft - (containerWidth / 2) + (wrapperWidth / 2);
-            
-            imageParallaxCarouselContainer.scrollTo({
-                left: scrollLeft,
-                behavior: 'smooth'
-            });
-
-            currentImageParallaxIndex = (currentImageParallaxIndex + 1) % imageCarouselWrappers.length;
-        }
-
-        function startImageParallaxAnimation() {
-            updateImageParallaxCarousel(); // Initial call
-            imageParallaxInterval = setInterval(updateImageParallaxCarousel, 8000); // Change every 8 seconds
-        }
-
         // --- Image Modal Functionality ---
         imageCarouselWrappers.forEach(wrapper => {
             wrapper.addEventListener('click', () => {
@@ -1352,6 +1357,55 @@
                 imageModal.style.display = 'none';
             }
         });
+
+        // --- Image Carousel Drag/Swipe Functionality ---
+        let isImageDragging = false;
+        let startImageX;
+        let scrollLeftStart;
+
+        imageParallaxCarouselContainer.addEventListener('mousedown', (e) => {
+            isImageDragging = true;
+            startImageX = e.pageX - imageParallaxCarouselContainer.offsetLeft;
+            scrollLeftStart = imageParallaxCarouselContainer.scrollLeft;
+            imageParallaxCarouselContainer.style.cursor = 'grabbing';
+        });
+
+        imageParallaxCarouselContainer.addEventListener('mouseleave', () => {
+            isImageDragging = false;
+            imageParallaxCarouselContainer.style.cursor = 'grab';
+        });
+
+        imageParallaxCarouselContainer.addEventListener('mouseup', () => {
+            isImageDragging = false;
+            imageParallaxCarouselContainer.style.cursor = 'grab';
+        });
+
+        imageParallaxCarouselContainer.addEventListener('mousemove', (e) => {
+            if (!isImageDragging) return;
+            e.preventDefault();
+            const x = e.pageX - imageParallaxCarouselContainer.offsetLeft;
+            const walk = (x - startImageX) * 2; // The *2 provides a faster scroll
+            imageParallaxCarouselContainer.scrollLeft = scrollLeftStart - walk;
+        });
+
+        // Touch events for mobile
+        imageParallaxCarouselContainer.addEventListener('touchstart', (e) => {
+            isImageDragging = true;
+            startImageX = e.touches[0].pageX - imageParallaxCarouselContainer.offsetLeft;
+            scrollLeftStart = imageParallaxCarouselContainer.scrollLeft;
+        }, { passive: true });
+
+        imageParallaxCarouselContainer.addEventListener('touchend', () => {
+            isImageDragging = false;
+        });
+
+        imageParallaxCarouselContainer.addEventListener('touchmove', (e) => {
+            if (!isImageDragging) return;
+            const x = e.touches[0].pageX - imageParallaxCarouselContainer.offsetLeft;
+            const walk = (x - startImageX) * 2; // The *2 provides a faster scroll
+            imageParallaxCarouselContainer.scrollLeft = scrollLeftStart - walk;
+        }, { passive: false }); // Passive false to allow preventDefault if needed, though not strictly required here.
+
 
         // --- Image Preloading (mantener para un mejor rendimiento) ---
         ['img/h1.gif', 'img/h2.gif', 'img/h3.gif', 'img/h1-overlay.png', 'img/h2-overlay.png', 'img/h3-overlay.png',
