@@ -92,17 +92,24 @@
             margin-top: 20px;
             font-size: 1.2em;
             color: var(--color-gray-text);
-            height: 30px; /* Altura fija para evitar saltos de contenido */
+            /* Adjusted for wider text and better readability */
+            width: 80%; /* Make it wider */
+            max-width: 500px; /* Set a max-width for larger screens */
+            height: 60px; /* Adjusted height for messages */
             overflow: hidden;
             text-align: center;
             position: relative;
+            padding: 0 10px; /* Adjusted horizontal padding */
+            box-sizing: border-box; /* Include padding in the element's total width and height */
+            line-height: 1.4; /* Adjust line height for better spacing */
         }
 
         .preloader-message-item {
             position: absolute;
             width: 100%;
-            top: 0;
+            top: 50%; /* Vertically center the message */
             left: 0;
+            transform: translateY(-50%); /* Vertically center the message */
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
@@ -438,7 +445,135 @@
         .social-icons { display: flex; justify-content: center; gap: 30px; margin: 10px 0; }
         .social-icons a { width: 70px; height: 70px; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--color-text-dark); color: var(--color-primary); font-size: 2em; transition: all 0.3s ease; }
         .social-icons a:hover { background: var(--color-primary); color: var(--color-icon-hover); transform: translateY(-5px); }
-        .section-parallax { background: url('img/bg_index.jpg') fixed center/cover no-repeat; height: 480px; }
+        
+        /* Modified section-parallax */
+        .section-parallax { 
+            background: url('img/bg_index.jpg') fixed center/cover no-repeat; 
+            height: 480px; 
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Image Carousel within Parallax */
+        .image-carousel-container {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center the images */
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 2;
+            overflow: hidden; /* Hide scrollbar and prevent dragging */
+        }
+
+        .image-carousel {
+            display: flex;
+            gap: 20px;
+            padding: 0 50px;
+            flex-shrink: 0;
+            justify-content: center; /* Center items within the flex container */
+            align-items: flex-end; /* Align items to the bottom to place caption below */
+        }
+
+        .carousel-image-wrapper {
+            flex-shrink: 0;
+            width: 250px;
+            height: 250px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column; /* Allow content to stack vertically */
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, width 0.5s ease, height 0.5s ease;
+            cursor: pointer; /* Change to pointer for clickability */
+            position: relative; /* For caption positioning */
+        }
+
+        .carousel-image-wrapper.enlarged {
+            width: 320px; /* Larger size */
+            height: 320px; /* Larger size */
+            transform: scale(1.05); /* Slightly more emphasis */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-primary);
+        }
+
+        .carousel-image {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(0, 132, 247, 0.5));
+            transition: transform 0.5s ease; /* Smooth transition for image scale */
+        }
+
+        .carousel-image-wrapper.enlarged .carousel-image {
+            transform: scale(1.05); /* Slightly enlarge image within enlarged wrapper */
+        }
+
+        .carousel-image-caption {
+            position: absolute;
+            bottom: 10px; /* Position caption at the bottom */
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--color-text-light);
+            padding: 5px 10px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-image-wrapper.enlarged .carousel-image-caption {
+            opacity: 1; /* Show caption when enlarged */
+        }
+
+        /* Modal for larger image view */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(38, 186, 245, 0.8);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .image-modal-close:hover,
+        .image-modal-close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
         footer { text-align: center; }
 
         /* WhatsApp Footer Button */
@@ -616,6 +751,27 @@
                 width: 200px;
                 height: 200px;
             }
+
+            .preloader-percentage {
+                font-size: 1.5em;
+            }
+            .preloader-messages {
+                font-size: 1em;
+                height: 60px; /* Adjusted for responsive */
+                width: 90%; /* Make it wider */
+                max-width: 400px; /* Adjust max-width for tablets */
+                padding: 0 5px; /* Adjust padding for tablets */
+                line-height: 1.4;
+            }
+            /* Further reduce image size for very small screens */
+            .carousel-image-wrapper {
+                width: 140px;
+                height: 140px;
+            }
+            .carousel-image-wrapper.enlarged {
+                width: 200px; /* Larger size */
+                height: 200px; /* Larger size */
+            }
         }
         @media (max-width: 480px) {
             .carousel-slide h2 { font-size: 1.2em; }
@@ -633,7 +789,21 @@
                 font-size: 1.5em;
             }
             .preloader-messages {
-                font-size: 1em;
+                font-size: 0.9em; /* Slightly smaller font for very small screens */
+                height: 60px; /* Adjusted for responsive */
+                width: 95%; /* Make it even wider */
+                max-width: none; /* Remove max-width for very small screens */
+                padding: 0 5px; /* Adjust padding for mobile */
+                line-height: 1.3;
+            }
+            /* Further reduce image size for very small screens */
+            .carousel-image-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            .carousel-image-wrapper.enlarged {
+                width: 150px; /* Larger size */
+                height: 150px; /* Larger size */
             }
         }
     </style>
@@ -645,13 +815,12 @@
             <div class="preloader-progress-ring"></div>
             <div class="preloader-percentage" id="preloaderPercentage">0%</div>
         </div>
-        <div class="preloader-messages" id="preloaderMessages">
-            <div class="preloader-message-item active">Bienvenido a MadeToBlast.</div>
-            <div class="preloader-message-item">Diseñamos páginas web que impresionan.</div>
-            <div class="preloader-message-item">Creamos tiendas online que venden solas.</div>
-            <div class="preloader-message-item">Refrescamos tu marca con estilo y estrategia.</div>
-            <div class="preloader-message-item">Agenda una consulta gratuita vía WhatsApp.</div>
-            <div class="preloader-message-item">Tu próxima gran idea, hecha realidad.</div>
+        <div class="preloader-messages" id="preloaderMessagesContainer">
+            <div class="preloader-message-item active">Hola, bienvenido a <span>MadeToBlast</span> ¿Cómo podemos ayudarte?</div>
+            <div class="preloader-message-item">Recuerda que puedes agendar una <span>consulta gratuita</span> via WhatsApp.</div>
+            <div class="preloader-message-item">Diseñamos Páginas webs adaptables a <span>dispositivos moviles</span>.</div>
+            <div class="preloader-message-item">Creamos Tiendas Online atractivas que <span>venden solas</span>.</div>
+            <div class="preloader-message-item">Agenda una <span>consulta gratuita</span> via WhatsApp.</div>
         </div>
     </div>
 
@@ -756,7 +925,28 @@
         <p>La fórmula y la estrategia que se adapta a tú presupuesto.</p>
     </section>
 
-    <div class="section-parallax"></div>
+    <section class="section-parallax">
+        <div class="image-carousel-container" id="imageParallaxCarouselContainer">
+            <div class="image-carousel" id="imageParallaxCarousel">
+                <div class="carousel-image-wrapper" data-caption="Diseño de Interfaz de Usuario (UI)">
+                    <img src="img/your-image-1.png" alt="Informative Image 1" class="carousel-image">
+                    <div class="carousel-image-caption">Diseño de Interfaz de Usuario (UI)</div>
+                </div>
+                <div class="carousel-image-wrapper" data-caption="Desarrollo de Experiencia de Usuario (UX)">
+                    <img src="img/your-image-2.png" alt="Informative Image 2" class="carousel-image">
+                    <div class="carousel-image-caption">Desarrollo de Experiencia de Usuario (UX)</div>
+                </div>
+                <div class="carousel-image-wrapper" data-caption="Optimización para Motores de Búsqueda (SEO)">
+                    <img src="img/your-image-3.png" alt="Informative Image 3" class="carousel-image">
+                    <div class="carousel-image-caption">Optimización para Motores de Búsqueda (SEO)</div>
+                </div>
+                <div class="carousel-image-wrapper" data-caption="Desarrollo de Aplicaciones Web">
+                    <img src="img/your-image-4.png" alt="Informative Image 4" class="carousel-image">
+                    <div class="carousel-image-caption">Desarrollo de Aplicaciones Web</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="section-light" id="contacto">
         <h2><i class="fa-solid fa-headset"></i> Hablemos de tu Próximo Proyecto</h2>
@@ -778,6 +968,11 @@
         <i class="fab fa-whatsapp"></i> WhatsApp
     </a>
 
+    <div id="imageModal" class="image-modal">
+        <span class="image-modal-close">×</span>
+        <img class="image-modal-content" id="img01">
+    </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- Globals ---
@@ -793,10 +988,21 @@
         const preloader = document.getElementById('preloader');
         const preloaderPercentage = document.getElementById('preloaderPercentage');
         const preloaderProgressRing = document.querySelector('.preloader-progress-ring');
-        const preloaderMessages = document.querySelectorAll('.preloader-message-item');
+        const preloaderMessages = document.querySelectorAll('#preloaderMessagesContainer .preloader-message-item'); // Correct selector
         const backToTopBtn = document.getElementById('back-to-top-btn');
         const whatsappFloat = document.getElementById('whatsappFloat');
         const topBar = document.querySelector('.top-bar'); // Get the top bar element
+        
+        // Image Parallax Carousel elements
+        const imageParallaxCarousel = document.getElementById('imageParallaxCarousel');
+        const imageCarouselWrappers = document.querySelectorAll('.image-carousel-wrapper');
+        let currentImageParallaxIndex = 0;
+        let imageParallaxInterval;
+
+        // Image Modal elements
+        const imageModal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('img01');
+        const spanCloseModal = document.getElementsByClassName('image-modal-close')[0];
 
         let currentInfoIndex = 0;
         let currentPreloaderMessageIndex = 0;
@@ -807,6 +1013,7 @@
         let scrollHistory = []; // Para almacenar el historial de desplazamiento
         let loadProgress = 0;
         let loadingInterval;
+        let preloaderMessageInterval; // New interval for preloader messages
 
         // --- Preloader Logic ---
         function updatePreloaderProgress() {
@@ -829,18 +1036,34 @@
                 // and the percentage update gives the numerical progress.
             } else {
                 clearInterval(loadingInterval);
+                clearInterval(preloaderMessageInterval); // Clear the preloader message interval
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.display = 'none';
                     startParallaxAnimation();
+                    startImageParallaxAnimation(); // Start the new image parallax animation
+                    // Start info bar rotation once preloader is hidden
+                    setInterval(rotateInfoTexts, 4000); 
                 }, 500);
             }
         }
 
         function rotatePreloaderMessages() {
-            preloaderMessages[currentPreloaderMessageIndex].classList.remove('active');
-            currentPreloaderMessageIndex = (currentPreloaderMessageIndex + 1) % preloaderMessages.length;
-            preloaderMessages[currentPreloaderMessageIndex].classList.add('active');
+            // Ensure there are messages to rotate
+            if (preloaderMessages.length > 0) {
+                // Deactivate the current message
+                if (preloaderMessages[currentPreloaderMessageIndex]) {
+                    preloaderMessages[currentPreloaderMessageIndex].classList.remove('active');
+                }
+                
+                // Move to the next message
+                currentPreloaderMessageIndex = (currentPreloaderMessageIndex + 1) % preloaderMessages.length;
+                
+                // Activate the new current message
+                if (preloaderMessages[currentPreloaderMessageIndex]) {
+                    preloaderMessages[currentPreloaderMessageIndex].classList.add('active');
+                }
+            }
         }
 
         // Start preloader animations and loading simulation
@@ -849,7 +1072,8 @@
             loadingInterval = setInterval(updatePreloaderProgress, 150); // Faster loading simulation
             
             // Rotate preloader messages
-            setInterval(rotatePreloaderMessages, 3000); // Change message every 3 seconds
+            rotatePreloaderMessages(); // Display the first message immediately
+            preloaderMessageInterval = setInterval(rotatePreloaderMessages, 3000); // Change message every 3 seconds
         });
 
 
@@ -888,9 +1112,12 @@
             currentInfoIndex = (currentInfoIndex + 1) % infoBarTexts.length;
             infoBarTexts[currentInfoIndex].classList.add('active');
         }
-        setInterval(rotateInfoTexts, 4000);
+        // Only start info bar rotation after preloader is gone
+        // This will be handled by the preloader hiding logic directly
+        // setInterval(rotateInfoTexts, 4000); // This was previously here, now called on load after preloader is hidden.
 
-        // --- Parallax Slider ---
+
+        // --- Parallax Slider (main hero image) ---
         function startParallaxAnimation() {
             // Reset styles before starting animation to ensure smooth restart
             parallaxSlide.style.opacity = 0;
@@ -948,7 +1175,7 @@
             });
         });
 
-        // --- Carousel ---
+        // --- Carousel (main content carousel) ---
         window.moveSlide = direction => {
             currentIndex = (currentIndex + direction + slides.length) % slides.length;
             updateCarousel();
@@ -959,7 +1186,7 @@
         const startAutoSlide = () => autoSlideInterval = setInterval(() => moveSlide(1), 15000);
         const resetAutoSlide = () => { clearInterval(autoSlideInterval); startAutoSlide(); };
 
-        // Carousel Drag/Swipe
+        // Carousel Drag/Swipe (main content carousel) - Kept as per original request, but user wants to remove for image parallax
         let isDragging = false, startX;
         carouselHero.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; resetAutoSlide(); });
         carouselHero.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; resetAutoSlide(); }, { passive: true });
@@ -1074,6 +1301,56 @@
         whatsappFloat.addEventListener('click', () => {
             whatsappFloat.classList.add('clicked');
             setTimeout(() => whatsappFloat.classList.remove('clicked'), 300);
+        });
+
+        // --- New: Image Parallax Carousel Automatic Cycle and Enlargement ---
+        function updateImageParallaxCarousel() {
+            imageCarouselWrappers.forEach((wrapper, index) => {
+                wrapper.classList.remove('enlarged');
+                // Center the small image within its wrapper when not enlarged
+                wrapper.querySelector('.carousel-image').style.transform = 'scale(1)'; 
+            });
+
+            const currentWrapper = imageCarouselWrappers[currentImageParallaxIndex];
+            currentWrapper.classList.add('enlarged');
+            // Enlarge the image within the enlarged wrapper
+            currentWrapper.querySelector('.carousel-image').style.transform = 'scale(1.05)'; 
+
+            // Calculate scroll position to center the enlarged image
+            const containerWidth = imageParallaxCarouselContainer.offsetWidth;
+            const wrapperWidth = currentWrapper.offsetWidth;
+            const scrollLeft = currentWrapper.offsetLeft - (containerWidth / 2) + (wrapperWidth / 2);
+            
+            imageParallaxCarouselContainer.scrollTo({
+                left: scrollLeft,
+                behavior: 'smooth'
+            });
+
+            currentImageParallaxIndex = (currentImageParallaxIndex + 1) % imageCarouselWrappers.length;
+        }
+
+        function startImageParallaxAnimation() {
+            updateImageParallaxCarousel(); // Initial call
+            imageParallaxInterval = setInterval(updateImageParallaxCarousel, 8000); // Change every 8 seconds
+        }
+
+        // --- Image Modal Functionality ---
+        imageCarouselWrappers.forEach(wrapper => {
+            wrapper.addEventListener('click', () => {
+                imageModal.style.display = 'flex';
+                modalImg.src = wrapper.querySelector('.carousel-image').src;
+            });
+        });
+
+        spanCloseModal.addEventListener('click', () => {
+            imageModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside the image
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.style.display = 'none';
+            }
         });
 
         // --- Image Preloading (mantener para un mejor rendimiento) ---
