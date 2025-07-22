@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Boost & Launch🚀</title>
+    <title>Brandaia🚀</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <style>
         :root {
@@ -515,13 +515,6 @@
             background: #128C7E;
             box-shadow: -8px 0 20px rgba(0,0,0,0.5);
         }
-
-        .whatsapp-float i {
-            font-size: 1.8em;
-            margin-right: 0; /* Remove default margin from other buttons */
-            margin-top: 5px; /* Adjust spacing for vertical text */
-            margin-bottom: 5px; /* Adjust spacing for vertical text */
-        }
         
         .whatsapp-float.clicked {
             animation: whatsappFloatPop 0.3s ease-out;
@@ -653,7 +646,7 @@
             <div class="preloader-percentage" id="preloaderPercentage">0%</div>
         </div>
         <div class="preloader-messages" id="preloaderMessages">
-            <div class="preloader-message-item active">Bienvenido a Boost & Launch.</div>
+            <div class="preloader-message-item active">Bienvenido a Brandaia.</div>
             <div class="preloader-message-item">Diseñamos páginas web que impresionan.</div>
             <div class="preloader-message-item">Creamos tiendas online que venden solas.</div>
             <div class="preloader-message-item">Refrescamos tu marca con estilo y estrategia.</div>
@@ -663,7 +656,7 @@
     </div>
 
     <header class="top-bar">
-        <div class="logo" id="logo">Boost & Launch 🚀</div>
+        <div class="logo" id="logo">Brandaia 🚀</div>
         <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
         <nav class="nav-inline" id="nav">
             <a href="portfolio.html" class="btn-nav"><i class="fa-solid fa-laptop-code"></i> Portafolio</a>
@@ -682,7 +675,7 @@
 
     <div class="info-bar">
         <div class="info-bar-content">
-            <div class="info-bar-text active">Hola, bienvenido a <span>Boost & Launch</span> ¿Cómo podemos ayudarte?</div>
+            <div class="info-bar-text active">Hola, bienvenido a <span>Brandaia</span> ¿Cómo podemos ayudarte?</div>
             <div class="info-bar-text">Recuerda que puedes agendar una <span>consulta gratuita</span> via WhatsApp.</div>
             <div class="info-bar-text">Diseñamos Páginas webs adaptables a <span>dispositivos moviles</span>.</div>
             <div class="info-bar-text">Creamos Tiendas Online atractivas que <span>venden solas</span>.</div>
@@ -691,14 +684,14 @@
     </div>
 
     <div class="pre-hero-buttons">
-        <a href="#hero-option-design" class="pre-hero-btn scroll-link"><i class="fa fa-laptop" aria-hidden="true"></i> Nuestros Servicios</a>
+        <a href="#hero-options-section" class="pre-hero-btn scroll-link"><i class="fa fa-laptop" aria-hidden="true"></i> Nuestros Servicios</a>
         <a href="portfolio.html" class="pre-hero-btn scroll-link"><i class="fa fa-folder-open" aria-hidden="true"></i> Portafolio</a>
         <a href="#contacto" class="pre-hero-btn scroll-link"><i class="fa fa-phone-square" aria-hidden="true"></i> Contáctanos</a>
     </div>
 
     <div class="hero-spacer"></div>
 
-    <section class="hero-options-section" id="hero">
+    <section class="hero-options-section" id="hero-options-section">
         <div class="hero-options-container">
             <div class="hero-option" data-slide="0" id="hero-option-design">
                 <div class="hero-option-bg" style="background-image: url('img/h1.gif');"></div>
@@ -803,7 +796,7 @@
         const preloaderMessages = document.querySelectorAll('.preloader-message-item');
         const backToTopBtn = document.getElementById('back-to-top-btn');
         const whatsappFloat = document.getElementById('whatsappFloat');
-
+        const topBar = document.querySelector('.top-bar'); // Get the top bar element
 
         let currentInfoIndex = 0;
         let currentPreloaderMessageIndex = 0;
@@ -883,7 +876,7 @@
                 particle.style.background = color;
                 // Posición inicial para que las partículas no se vean en el borde
                 particle.style.bottom = `-10px`; // Inicia justo debajo del contenedor
-
+                
                 particlesContainer.appendChild(particle);
             }
         }
@@ -1018,8 +1011,15 @@
         // --- Smooth Scroll Logic and History ---
         const smoothScrollTo = (targetId) => {
             let targetElement;
+            let offset = 0; // Default offset
+            const headerHeight = topBar.offsetHeight; // Get the current height of the sticky header
+
             if (typeof targetId === 'string') {
                 targetElement = document.getElementById(targetId);
+                // Adjust offset for 'hero-options-section' to prevent it from being cut off
+                if (targetId === 'hero-options-section') {
+                    offset = headerHeight + 20; // Add some extra padding
+                }
             } else if (typeof targetId === 'number') {
                 window.scrollTo({ top: targetId, behavior: 'smooth' });
                 return;
@@ -1032,13 +1032,8 @@
                     scrollHistory.push(currentScrollTop);
                 }
                 
-                // Adjust scroll for "Nuestros Servicios" button
-                if (targetId === 'hero-option-design') {
-                    const offset = targetElement.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top: offset, behavior: 'smooth' });
-                } else {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
+                const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
             }
         };
 
@@ -1053,7 +1048,7 @@
 
         // --- Back to Top Button Logic ---
         window.addEventListener('scroll', () => {
-            const heroOptionsSection = document.getElementById('hero');
+            const heroOptionsSection = document.getElementById('hero-options-section');
             if (heroOptionsSection) {
                 const heroOptionsRect = heroOptionsSection.getBoundingClientRect();
                 // Show button if the user has scrolled past the top of the hero options section
@@ -1071,7 +1066,7 @@
                 window.scrollTo({ top: lastScrollPos, behavior: 'smooth' });
             } else {
                 // If no history, scroll to the top of hero-options-section as a fallback
-                smoothScrollTo('hero');
+                smoothScrollTo('hero-options-section');
             }
         });
 
