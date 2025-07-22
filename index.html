@@ -769,34 +769,38 @@
             
             /* Responsive adjustments for .section-parallax carousel */
             .section-parallax {
-                height: 380px; /* Adjust height for smaller screens */
+                height: 250px; /* Adjust height for smaller screens to fit content */
             }
 
             .image-carousel-container {
-                padding: 10px 0;
+                padding: 5px 0; /* Reduce padding */
+                overflow-x: hidden; /* Hide horizontal scrollbar */
             }
 
             .image-carousel {
-                gap: 10px; /* Reduce gap between images */
-                padding: 0 20px; /* Adjust padding for mobile */
-                justify-content: center; /* Center items on mobile by default */
+                gap: 5px; /* Reduce gap between images significantly */
+                padding: 0 5px; /* Reduce padding for mobile */
+                justify-content: center; /* Center items */
+                flex-wrap: nowrap; /* Ensure items stay in a single line for potential horizontal scrolling if needed, though we'll make them fit */
             }
 
             .carousel-image-wrapper {
-                width: 180px; /* Larger size for mobile */
-                height: 180px; /* Larger size for mobile */
+                flex-shrink: 1; /* Allow items to shrink */
+                width: 24%; /* Distribute width among 4 items (approx. 100% / 4) */
+                height: 120px; /* Smaller height for mobile */
+                margin: 0 0.5%; /* Small margin to create minimal gap */
             }
             
             .carousel-image-wrapper:hover {
-                width: 200px; /* Slightly larger on hover */
-                height: 200px; /* Slightly larger on hover */
+                width: 26%; /* Slightly larger on hover, but still constrained */
+                height: 130px; /* Slightly larger on hover */
                 transform: scale(1.03); /* Smaller scale effect for mobile */
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-primary);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4), 0 0 10px var(--color-primary); /* Adjusted shadow */
             }
 
             .carousel-image {
-                width: 95%; /* Make image take more space */
-                height: 95%;
+                width: 90%; /* Make image take most of the space */
+                height: 90%;
             }
 
             .carousel-image-wrapper:hover .carousel-image {
@@ -804,8 +808,9 @@
             }
 
             .carousel-image-caption {
-                font-size: 0.8em; /* Smaller caption font */
-                padding: 3px 8px;
+                font-size: 0.7em; /* Smaller caption font */
+                padding: 2px 5px; /* Reduced padding */
+                bottom: 5px; /* Move caption up slightly */
             }
         }
         @media (max-width: 480px) {
@@ -832,13 +837,19 @@
                 line-height: 1.3;
             }
             /* Further reduce image size for very small screens */
+            .section-parallax {
+                height: 200px; /* Even smaller height for very small screens */
+            }
             .carousel-image-wrapper {
-                width: 150px; /* Even larger size for very small mobile */
-                height: 150px; /* Even larger size for very small mobile */
+                width: 24%; /* Keep around 24% */
+                height: 100px; /* Even smaller height */
             }
             .carousel-image-wrapper:hover {
-                width: 165px; /* Even smaller enlarged size for very small mobile */
-                height: 165px; /* Even smaller enlarged size for very small mobile */
+                width: 26%; /* Keep hover consistent */
+                height: 110px; /* Keep hover consistent */
+            }
+            .carousel-image-caption {
+                font-size: 0.65em; /* Even smaller caption font */
             }
         }
     </style>
@@ -1359,52 +1370,9 @@
         });
 
         // --- Image Carousel Drag/Swipe Functionality ---
-        let isImageDragging = false;
-        let startImageX;
-        let scrollLeftStart;
-
-        imageParallaxCarouselContainer.addEventListener('mousedown', (e) => {
-            isImageDragging = true;
-            startImageX = e.pageX - imageParallaxCarouselContainer.offsetLeft;
-            scrollLeftStart = imageParallaxCarouselContainer.scrollLeft;
-            imageParallaxCarouselContainer.style.cursor = 'grabbing';
-        });
-
-        imageParallaxCarouselContainer.addEventListener('mouseleave', () => {
-            isImageDragging = false;
-            imageParallaxCarouselContainer.style.cursor = 'grab';
-        });
-
-        imageParallaxCarouselContainer.addEventListener('mouseup', () => {
-            isImageDragging = false;
-            imageParallaxCarouselContainer.style.cursor = 'grab';
-        });
-
-        imageParallaxCarouselContainer.addEventListener('mousemove', (e) => {
-            if (!isImageDragging) return;
-            e.preventDefault();
-            const x = e.pageX - imageParallaxCarouselContainer.offsetLeft;
-            const walk = (x - startImageX) * 2; // The *2 provides a faster scroll
-            imageParallaxCarouselContainer.scrollLeft = scrollLeftStart - walk;
-        });
-
-        // Touch events for mobile
-        imageParallaxCarouselContainer.addEventListener('touchstart', (e) => {
-            isImageDragging = true;
-            startImageX = e.touches[0].pageX - imageParallaxCarouselContainer.offsetLeft;
-            scrollLeftStart = imageParallaxCarouselContainer.scrollLeft;
-        }, { passive: true });
-
-        imageParallaxCarouselContainer.addEventListener('touchend', () => {
-            isImageDragging = false;
-        });
-
-        imageParallaxCarouselContainer.addEventListener('touchmove', (e) => {
-            if (!isImageDragging) return;
-            const x = e.touches[0].pageX - imageParallaxCarouselContainer.offsetLeft;
-            const walk = (x - startImageX) * 2; // The *2 provides a faster scroll
-            imageParallaxCarouselContainer.scrollLeft = scrollLeftStart - walk;
-        }, { passive: false }); // Passive false to allow preventDefault if needed, though not strictly required here.
+        // REMOVED: isImageDragging, startImageX, scrollLeftStart variables and all associated event listeners
+        // for `imageParallaxCarouselContainer`'s mouse/touch events.
+        // The goal is to remove horizontal scrolling, so drag/swipe is no longer relevant for that section.
 
 
         // --- Image Preloading (mantener para un mejor rendimiento) ---
