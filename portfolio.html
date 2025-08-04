@@ -139,7 +139,38 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            text-decoration: none; /* Asegúrate de que los enlaces no tengan subrayado */
+            display: block; /* Asegúrate de que los enlaces se comporten como bloques */
         }
+
+        /* Modificación para el enlace del parallax */
+        a.project-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Efecto de hover para los enlaces del parallax */
+        .project-link .hero-3d-image-section::before {
+            content: '';
+            position: absolute;
+            top: var(--y);
+            left: var(--x);
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            transition: width 0.5s, height 0.5s;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none; /* Evita que el pseudo-elemento interfiera con los clics */
+        }
+        
+        .project-link:hover .hero-3d-image-section::before {
+            width: 300px;
+            height: 300px;
+        }
+
         .btn-nav::before, .project-link::before, .btn-whatsapp-footer::before, .pre-hero-btn::before, .whatsapp-float::before {
             content: '';
             position: absolute;
@@ -153,8 +184,10 @@
             border-radius: 50%;
             z-index: -1;
         }
-        .btn-nav:hover::before, .project-link:hover::before { width: 300px; height: 300px; }
+        .btn-nav:hover::before { width: 300px; height: 300px; }
         .btn-whatsapp-footer:hover::before, .pre-hero-btn:hover::before, .whatsapp-float:hover::before { width: 250px; height: 250px; }
+        .project-link:hover::before { width: 300px; height: 300px; }
+
 
         /* Top Bar */
         .top-bar {
@@ -376,6 +409,12 @@
             border-radius: 0;
             box-shadow: none;
         }
+
+        /* Contenedor del parallax, ahora dentro del enlace */
+        .project-link .hero-3d-image-section {
+            padding: 0; /* Elimina el padding para que el enlace cubra toda la sección */
+        }
+        
         .hero-3d-image-container {
             position: relative;
             width: 60vmin; /* Responsive width */
@@ -837,32 +876,36 @@
             <h1>Nuestra experiencia</h1>
         </div>
     </div>
-
-    <section class="hero-3d-image-section" id="hero3dImageSectionTop">
-        <div class="hero-image-slider">
-            <div class="hero-slider-track" id="heroSliderTrackTop">
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_01.png');"></div>
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_02.png');"></div>
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_03.png');"></div>
+    
+    <a href="https://the-astro-bruh.github.io/Counsel-Advisory-Website" target="_blank" class="project-link">
+        <div class="hero-3d-image-section" id="hero3dImageSectionTop">
+            <div class="hero-image-slider">
+                <div class="hero-slider-track" id="heroSliderTrackTop">
+                    <div class="hero-slide" style="background-image: url('img/parallax.portfolio_01.png');"></div>
+                    <div class="hero-slide" style="background-image: url('img/parallax.portfolio_02.png');"></div>
+                    <div class="hero-slide" style="background-image: url('img/parallax.portfolio_03.png');"></div>
+                </div>
             </div>
         </div>
-    </section>
+    </a>
 
     <section class="section-dark">
         <h2><i class="fa-solid fa-palette"></i> Proyectos Destacados</h2>
         <p>Una muestra de la calidad y creatividad que ponemos en cada trabajo.</p>
     </section>
-
-    <section class="hero-3d-image-section" id="hero3dImageSectionBottom">
-        <div class="hero-image-slider">
-            <div class="hero-slider-track" id="heroSliderTrackBottom">
-                <div class="hero-slide" style="background-image: url('img/slider_bg_1.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('img/slider_bg_2.jpg');"></div>
-                <div class="hero-slide" style="background-image: url('img/slider_bg_3.jpg');"></div>
+    
+    <a href="https://www.linkedin.com/in/leonel-e-rodr%C3%ADguez-s-66390335b/" target="_blank" class="project-link">
+        <div class="hero-3d-image-section" id="hero3dImageSectionBottom">
+            <div class="hero-image-slider">
+                <div class="hero-slider-track" id="heroSliderTrackBottom">
+                    <div class="hero-slide" style="background-image: url('img/slider_bg_1.png');"></div>
+                    <div class="hero-slide" style="background-image: url('img/slider_bg_2.png');"></div>
+                    <div class="hero-slide" style="background-image: url('img/slider_bg_3.png');"></div>
+                </div>
             </div>
+            <div class="central-render" id="centralRenderBottom"></div>
         </div>
-        <div class="central-render" id="centralRenderBottom"></div>
-    </section>
+    </a>
 
     <div class="wide-parallax-section">
         <div class="wide-parallax-bg"></div>
