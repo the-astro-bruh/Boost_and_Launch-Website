@@ -841,12 +841,11 @@
     <section class="hero-3d-image-section" id="hero3dImageSectionTop">
         <div class="hero-image-slider">
             <div class="hero-slider-track" id="heroSliderTrackTop">
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_01.jpeg');"></div>
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_02.jpeg');"></div>
-                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_03.jpeg');"></div>
+                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_01.png');"></div>
+                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_02.png');"></div>
+                <div class="hero-slide" style="background-image: url('img/parallax.portfolio_03.png');"></div>
             </div>
         </div>
-        <div class="central-render" id="centralRenderTop"></div>
     </section>
 
     <section class="section-dark">
@@ -913,7 +912,7 @@
 
         // 3D Hover Image (Now with a slider background) - Top instance
         const hero3dImageSectionTop = document.getElementById('hero3dImageSectionTop');
-        const centralRenderTop = document.getElementById('centralRenderTop');
+        // const centralRenderTop = document.getElementById('centralRenderTop'); // This element is removed
         const heroSliderTrackTop = document.getElementById('heroSliderTrackTop');
         const heroSlidesTop = Array.from(heroSliderTrackTop.querySelectorAll('.hero-slide'));
         let currentHeroSlideIndexTop = 0;
@@ -1089,9 +1088,7 @@
         }
 
         // Initialize 3D hover effects for both sections
-        if (hero3dImageSectionTop && centralRenderTop) {
-            apply3DHoverEffect(hero3dImageSectionTop, centralRenderTop);
-        }
+        // The top section no longer has a central render, so only apply the effect to the bottom section
         if (hero3dImageSectionBottom && centralRenderBottom) {
             apply3DHoverEffect(hero3dImageSectionBottom, centralRenderBottom);
         }
