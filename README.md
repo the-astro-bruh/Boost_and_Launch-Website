@@ -1,4 +1,4 @@
-https://the-astro-bruh.github.io/Boost_and_Launch-Website
+https://theastrobruh.github.io/Boost_and_Launch-Website
 
 
 Made2Blast🚀
